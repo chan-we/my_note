@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .main {
+            /* flex-grow设置了一个flex项主尺寸的flex增长系数。
+            它指定了flex容器中剩余空间的多少应该分配给项目（flex增长系数） */
+            flex-grow: 1;
+            height: 300px;
+            background-color: red;
+        }
+
+        .left {
+            order: -1;
+            flex: 0 1 200px;
+            margin-right: 20px;
+            height: 300px;
+            background-color: blue;
+        }
+
+        .right {
+            flex: 0 1 100px;
+            margin-left: 20px;
+            height: 300px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+</body>
+
+</html>

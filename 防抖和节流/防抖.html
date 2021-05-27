@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #box {
+            width: 150px;
+            height: 150px;
+            background-color: aqua;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <p>0</p>
+    </div>
+</body>
+<script>
+    let box = document.getElementById('box');
+    let p = box.children[0];
+    let num = 0;
+    function count() {
+        p.innerHTML = num++;
+    }
+
+    // 未防抖
+    // box.onmousemove = count;
+
+    // 防抖
+    box.onmousemove = debounce(count, 500);
+
+    //防抖（非立即执行）
+    // function debounce(func, wait = 1000) {
+    //     let timer = null;
+    //     return function debounced(...args) {
+    //         if (timer) {
+    //             //重置计时器
+    //             clearTimeout(timer);
+    //         }
+    //         //新计时器
+    //         timer = setTimeout(() => {
+    //             func(...args);
+    //             timer = null;
+    //         }, wait);
+    //     }
+    // }
+
+    //防抖（立即执行）
+    function debounce(func, wait = 1000) {
+        let timer = null;
+        return function debounced(...args) {
+            const now = !timer;
+            if (timer) {
+                //重置计时器
+                clearTimeout(timer);
+            }
+            //新计时器
+            timer = setTimeout(() => {
+                timer = null;
+            }, wait);
+            //如果timer不为null，执行一次
+            //短时间内再触发，timer未被设null，不会执行
+            if(now){
+                func.apply(this,args);
+            }
+        }
+    }
+</script>
+
+</html>

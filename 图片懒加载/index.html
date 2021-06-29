@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img{
+            /*触发懒加载，以下两个属性是必须的*/
+            display: block;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<img data-src="https://www.getdroidpro.com/wp-content/uploads/2019/10/iMac-Wallpaper-33-1920x1080.jpg" alt="">
+<img data-src="https://cutewallpaper.org/21/sick-hd-backgrounds/Sick-Wallpapers-for-Desktop-PixelsTalk.Net.jpg" alt="">
+<img data-src="https://cdn.hipwallpaper.com/i/14/70/ipgoER.jpg" alt="">
+<img data-src="https://3.bp.blogspot.com/-9SwE8ZX8D4E/WmoZHrHdBpI/AAAAAAAAD6c/lKqQg5bKDEMbTpxLWU_AtuVuVC5yL1GSgCLcBGAs/s1600/hdwallpaperexperts.blogspot%2B%25287%2529.jpg" alt="">
+<img data-src="https://cdn.wallpapersafari.com/84/16/m1ZBGx.jpg" alt="">
+<img data-src="https://cdn.wallpapersafari.com/11/55/BAx32T.jpg" alt="">
+</body>
+<script>
+    let imgs = document.querySelectorAll('img');
+
+    /**
+     * 获取DOM元素到页面顶部的距离
+     * @param e
+     * @returns {number}
+     */
+    function getTop(e){
+        let top = e.offsetTop;
+        while (e = e.offsetParent){
+            top += e.offsetTop;
+        }
+        return top;
+    }
+
+    function lazyLoad(imgs) {
+        //获取可视区域（屏幕）高度
+        const HEIGHT = document.documentElement.clientHeight;
+        //获取滚动的距离（可视区域上沿到页面顶部的距离）
+        const SCROLL_TOP = document.documentElement.scrollTop || document.body.scrollTop;
+        for (let i = 0; i < imgs.length; i++) {
+            if(HEIGHT + SCROLL_TOP > getTop(imgs[i])){
+                imgs[i].src = imgs[i].getAttribute('data-src');
+            }
+        }
+    }
+    window.onload = window.onscroll = function (){
+        lazyLoad(imgs);
+    }
+</script>
+</html>

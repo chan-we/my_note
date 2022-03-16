@@ -4,7 +4,8 @@
 
 进入设置  
 
-![PicGo配置Github图床-2022-03-15-18-00-10-PicGo配置Github图床-image-2022-03-15-17-45-27](https://raw.githubusercontent.com/chan-we/my_note/picbed/PicGo%E9%85%8D%E7%BD%AEGithub%E5%9B%BE%E5%BA%8A-2022-03-15-18-00-10-PicGo%E9%85%8D%E7%BD%AEGithub%E5%9B%BE%E5%BA%8A-image-2022-03-15-17-45-27.png?token=AMDEC2JLCHROPYFDZWLQA7TCGBR6Q)
+![PicGo配置Github图床-2022-03-15-18-00-10-PicGo配置Github图床-image-2022-03-15-17-45-27](https://raw.githubusercontent.com/chan-we/my_note/picbed/PicGo%E9%85%8D%E7%BD%AEGithub%E5%9B%BE%E5%BA%8A-2022-03-15-18-00-10-PicGo%E9%85%8D%E7%BD%AEGithub%E5%9B%BE%E5%BA%8A-image-2022-03-15-17-45-27.png?token=AMDEC2JLCHROPYFDZWLQA7TCGBR6Q)  
+
 修改配置  
 
 ![](https://raw.githubusercontent.com/chan-we/my_note/picbed/test.png?token=AMDEC2PHD5JIA42HNBWFSJLCGBRU4)  

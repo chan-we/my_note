@@ -2,7 +2,7 @@
 
 # 类型限定
 
-将对象的值设为类型来限定参数的类型，这个值可以是一个对象，来进行进一步的限定，这个在下面会提及
+将对象的值设为类型来限定参数的类型，这个值可以是一个对象，来进行进一步的限定，更多查看[prop验证](https://v3.cn.vuejs.org/guide/component-props.html#prop-%E9%AA%8C%E8%AF%81)
 
 ```ts
 const props = defineProps({

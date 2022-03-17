@@ -334,6 +334,49 @@ $sizeClass: small !default;
 }
 ```
 
+# 循环语句
+
+for循环有两种形式，分别为：`@for $var from $start through $end` 和 `@for $var from $start to $end` 。`$var`表示变量，`$start`表示起始值，`$end`表示结束值，这两个的区别是关键字through表示包括end这个数，而to则不包括end这个数。
+
+示例：
+
+```scss
+@for $i from 1 through 3 {
+  .item-#{$i} { width: 2em * $i; }
+}
+```
+
+# 遍历列表
+
+使用`@each`来遍历一个列表
+
+示例：
+
+```scss
+@each $animal in puma, sea-slug, egret, salamander {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+  }
+}
+```
+
+转为css：
+
+```css
+.puma-icon {
+  background-image: url('/images/puma.png'); 
+}
+.sea-slug-icon {
+  background-image: url('/images/sea-slug.png'); 
+}
+.egret-icon {
+  background-image: url('/images/egret.png'); 
+}
+.salamander-icon {
+  background-image: url('/images/salamander.png'); 
+}
+```
+
 # @extend 继承
 
 使用@extend 不仅会继承被继承的选择器自身的所有样式，任何跟被继承的选择器有关的组合选择器样式也会被继承

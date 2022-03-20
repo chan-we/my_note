@@ -114,7 +114,7 @@ Mongoose 提供内置的和自定义的验证器，以及同步的和异步的�
 
 更多信息请参阅：[模型](http://mongoosejs.com/docs/models.html)
 
-## 创建和修改文档
+## 创建和修改
 
 可以通过定义模型的实例并调用 `save()` 来创建记录。以下示例假定 `SomeModel` 是用现有模式创建的模型（只有一个字段 "`name`" ）：
 
@@ -162,66 +162,225 @@ awesome_instance.save( function(err) {
 });
 ```
 
-## 搜索记录
+## 搜索
 
-可以使用查询方法搜索记录，查询条件可列在 JSON 文档中。以下代码展示了如何在数据库中找到所有网球运动员，并返回运动员姓名和年龄字段。这里只指定了一个匹配字段（运动项目，`sport`），也可以添加更多条件，指定正则表达式，或去除所有条件以返回所有运动员。
+<https://segmentfault.com/a/1190000021010300>
 
-```js
-const Athlete = mongoose.model('Athlete', yourSchema);
+使用`find()`函数来进行搜索
 
-// SELECT name, age FROM Athlete WHERE sport='Tennis'
-Athlete.find(
-  { 'sport': 'Tennis' },
-  'name age',
-  function (err, athletes) {
-    if (err) {
-      return handleError(err);
-    } // 'athletes' 中保存一个符合条件的运动员的列表
+```javascript
+Model.find(filter[, projection][, options][, callback])
+```
+
+### 参数1：filter
+
+查询条件使用 JSON 文档的格式，JSON 文档的语法跟 [MongoDB shell](https://docs.mongodb.com/manual/reference/method/db.collection.find/) 中一致。
+
+1. 查找全部
+
+   ```js
+   Model.find()
+   Model.find({})
+   ```
+
+2. 精确查找
+
+   ```js
+   Model.find({author:'dora'})
+   ```
+
+3. 使用[操作符](https://docs.mongodb.com/manual/reference/operator/query/#query-selectors)
+
+   **对比相关操作符**
+
+   | 符号 | 描述                                         |
+   | ---- | -------------------------------------------- |
+   | $eq  | 与指定的值**相等**                           |
+   | $ne  | 与指定的值**不相等**                         |
+   | $gt  | **大于**指定的值                             |
+   | $gte | **大于等于**指定的值                         |
+   | $lt  | **小于**指定的值                             |
+   | $lte | **小于等于**指定的值                         |
+   | $in  | 与查询数组中指定的值中的任何一个匹配         |
+   | $nin | 与查询数组中指定的值中的任何一个都**不**匹配 |
+
+   ```javascript
+   // 返回 age 字段等于 16 或者 18 的所有 document。
+   Model.find({ age: { $in: [16, 18]} })
+   ```
+
+​		**逻辑相关操作符**
+
+​		
+
+| 符号 | 描述                                   |
+| ---- | -------------------------------------- |
+| $and | **满足**数组中指定的**所有**条件       |
+| $nor | **不满足**数组中指定的**所有**条件     |
+| $or  | 满足数组中指定的条件的**其中一个**     |
+| $not | 反转查询，返回**不满足**指定条件的文档 |
+
+​		逻辑操作符中的比较包括字段不存在的情况。
+
+```javascript
+Model.find( { age: { $not: { $lte: 16 }}})
+// 返回 age 字段大于 16 或者 age 字段 不存在 的文档
+```
+
+**字段相关操作符**
+
+| 符号                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| $exists                                                      | 匹配**存在**指定字段的文档 `{ field: { $exists: <boolean> } }` |
+| [$type](https://docs.mongodb.com/manual/reference/operator/query/type/#available-types) | 返回字段属于指定**类型**的文档 `{field: { $type: <BSON type> }}` |
+
+4. 嵌套对象字段的查找
+
+数据如下
+
+```javascript
+{
+  name: { first: "dora", last: "wang" }
+}
+```
+
+精确匹配，顺序、字段都必须一致。
+
+```javascript
+Model.find({ name: { last: "wang", first: "dora" } })
+// [] 找不到数据
+```
+
+使用点语法，可匹配嵌套的字段，其中字段名必须用引号引起来。
+
+```javascript
+Model.find({ 'name.last': 'wang' })
+```
+
+### 参数2：projection
+
+指定要包含或排除哪些 document字段(也称为查询“投影”)，必须同时指定包含或同时指定排除，不能混合指定，`_id` 除外。
+
+在 mongoose 中有两种指定方式，字符串指定和对象形式指定。
+
+字符串指定时在排除的字段前加 `-` 号，只写字段名的是包含。
+
+```javascript
+Model.find({},'age');
+Model.find({},'-name');
+```
+
+对象形式指定时，`1` 是包含，`0` 是排除。
+
+```javascript
+Model.find({}, { age: 1 });
+Model.find({}, { name: 0 });
+```
+
+**使用 select() 方法定义**
+
+```javascript
+Model.find().select('name age');
+Model.find().select({ name: 0 });
+```
+
+### 参数3：options
+
+```javascript
+// 三种方式实现
+Model.find(filter,null,options)
+Model.find(filter).setOptions(options)
+Model.find(filter).<option>(xxx)
+```
+
+`options` 选项见官方文档 [`Query.prototype.setOptions()`](https://link.segmentfault.com/?enc=XVRh737dGf7W%2F8ULYVJX%2BA%3D%3D.mMgzBhHBqBl7k1I0VeK7e6j21kxXX7oBJVjdq4cUk7Mv2G96NJGLbscrpN7XF8lw%2FHaafePXSw4DuRiKuIpG6Q%3D%3D)。
+
+- `sort`：按照[排序规则](https://link.segmentfault.com/?enc=x4MwniMvgVVo8nNRpsByNg%3D%3D.SAIxgnYwKFE4jIT67L2dvGNyixnjJcKQTwicDTEwz1HH%2Fuk%2BCYx3nD15C9tCmwlWh5VFOKsZzDqTycC07sJO4wQMtmIOzvwC6RHqePirfctdLyZDyBOTIX4PioEWxzGkZb2Y7MmAfN4rdYpauwz7lg%3D%3D)根据所给的字段进行排序，值可以是 `asc`, `desc`, `ascending`, `descending`, `1`, 和 `-1`。
+- `limit`：指定返回结果的最大数量
+- `skip`：指定要跳过的文档数量
+- [`lean`](https://link.segmentfault.com/?enc=CH13nV4G4IP37Bw6%2Be%2BY2Q%3D%3D.cvhRe5tUrROCvRhseH5dT2rFo3P5TWrQLr2rfiJJK%2FWpXxbuYkuqaHpZLq%2BovQj0)：返回普通的 js 对象，而不是 `Mongoose Documents`。建议不需要 mongoose 特殊处理就返给前端的数据都最好使用该方法转成普通 js 对象。
+
+```javascript
+// sort 两种方式指定排序
+Model.find().sort('age -name'); // 字符串有 - 代表 descending 降序
+Model.find().sort({age:'asc', name:-1});
+```
+
+`sort` 和 `limit` 同时使用时，调用的顺序并不重要，返回的数据都是先排序后限制数量。
+
+```javascript
+// 效果一样
+Model.find().limit(2).sort('age');
+Model.find().sort('age').limit(2);
+```
+
+### 参数4：callback
+
+- 传入
+
+Mongoose 中所有传入 `callback` 的查询，其格式都是 `callback(error, result)` 这种形式。如果出错，则 `error` 是出错信息，`result` 是 `null`；如果查询成功，则 `error` 是 `null`， `result` 是查询结果，查询结果的结构形式是根据查询方法的不同而有不同形式的。
+
+`find()` 方法的查询结果是数组，即使没查询到内容，也会返回 `[]` 空数组。
+
+- 不传
+
+不传入 `callback` 时，查询方法返回的是一个 `Query` 实例，实例继承了 [`Query` 原型](https://link.segmentfault.com/?enc=%2B5W0bDntWKOZh0SP4aRaSg%3D%3D.LO5K532ugTmqmMQr25sJ5%2BHYcAY9LbXGJuT2uHDqPCYTDBvKa1S6TKpmcDY5Peri) 上的所有方法，因此返回的实例可以链式调用其它方法，从而组成查询链。
+
+```javascript
+let query = Model.find({ name: 'Dora' });
+
+query.select('name age -_id');
+```
+
+查询方法不传入回调函数时，获取查询数据的方式有两种：
+
+**1. exec()**
+
+使用 `query` 实例的 `exec()` 方法执行查询，即在链式语法的最后统一通过传入 `callback` 获取查询数据。
+
+```javascript
+// 效果一样
+Model.find(
+  { name: /Dora/, age: { $gte: 16, $lt: 18 } },
+  'name age -_id',
+  { limit: 2, sort: 'age' },
+  (err,res)=>{
+    if (err) return handleError(err);
+    console.log(res);
   }
+});
+
+let query = Model.
+  find({ name: /Dora/ }).
+  where('age').gte(16).lt(18).
+  select('name age -_id').
+  limit(2).sort('age');
+
+  query.exec((err, res)=> {
+    if (err) return handleError(err);
+    console.log(res);
+  });
+```
+
+**2. then()**
+
+使用 `query` 实例的 `then()` 方法将查询链当作 `promise` 来处理。
+
+```javascript
+query.then(
+  (res) => {console.log(res)},
+  (err) => {console.log(err)}
 );
 ```
 
-### 回调
+使用 `async / await` 获取查询结果。
 
-若像上述代码那样指定回调，则查询将立即执行。搜索完成后将调用回调。
-
-Mongoose 中所有回调都使用 `callback(error, result)` 模式。如果查询时发生错误，则参数 `error` 将包含错误文档，`result` 为 `null`。如果查询成功，则 `error`为 `null`，查询结果将填充至 `result` 。
-
-若未指定回调，则 API 将返回 [Query](http://mongoosejs.com/docs/api.html#query-js) 类型的变量。可以使用该查询对象来构建查询，随后使用 `exec()` 方法执行（使用回调）。
-
-```js
-// 寻找所有网球运动员
-const query = Athlete.find({ 'sport': 'Tennis' });
-
-// 查找 name, age 两个字段
-query.select('name age');
-
-// 只查找前 5 条记录
-query.limit(5);
-
-// 按年龄排序
-query.sort({ age: -1 });
-
-// 以后某个时间运行该查询
-query.exec(function (err, athletes) {
-  if (err) {
-    return handleError(err);
-  } // athletes 中保存网球运动员列表，按年龄排序，共 5 条记录
-})
+```javascript
+let res = await query;
+console.log(res);
 ```
 
-上面的代码还可以改为链式调用
 
-```js
-Athlete.
-  find().
-  where('sport').equals('Tennis').
-  where('age').gt(17).lt(50).  // 附加 WHERE 查询
-  limit(5).
-  sort({ age: -1 }).
-  select('name age').
-  exec(callback); // 回调函数的名字是 callback
-```
 
 `find()` 方法会取得所有匹配记录，但通常你只想取得一个。以下方法可以查询单个记录：
 

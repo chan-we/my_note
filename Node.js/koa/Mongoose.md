@@ -1,5 +1,7 @@
 [mongoose官方教程](https://mongoosejs.com/docs/guide.html)
 
+[Mongoose5.0 中文文档](http://www.mongoosejs.net/docs/guide.html)
+
 <https://developer.mozilla.org/zh-CN/docs/learn/Server-side/Express_Nodejs/mongoose#mongoose_%E5%85%A5%E9%97%A8>
 
 这一段将简要介绍如何将 Mongoose 连接到 MongoDB数据库，如何定义模式和模型，以及如何进行基本查询。
@@ -12,22 +14,75 @@ npm install mongoose
 
 # 连接到MongoDB
 
+<http://www.mongoosejs.net/docs/connections.html>
+
 Mongoose 需要连接到 MongoDB 数据库。可以 `require()` 之，并通过 `mongoose.connect()` 连接到本地数据库，如下。
 
 ```js
 // 导入 mongoose 模块
 const mongoose = require('mongoose');
 
-// 设置默认 mongoose 连接
-const mongoDB = 'mongodb://127.0.0.1/my_database';
-mongoose.connect(mongoDB);
-// 让 mongoose 使用全局 Promise 库
-mongoose.Promise = global.Promise;
-// 取得默认连接
-const db = mongoose.connection;
+// 设置默认 mongoose 连接,这是连接到本地 my_database 数据库默认接口(27017)的最小配置。
+mongoose.connect('mongodb://127.0.0.1/my_database');
+```
 
-// 将连接与错误事件绑定（以获得连接错误的提示）
-db.on('error', console.error.bind(console, 'MongoDB 连接错误：'));
+你也可以在url中指定多个参数，详见[Connection String URI Format](https://docs.mongodb.com/manual/reference/connection-string/)
+
+## 操作缓存
+
+你不必等待连接建立成功就可以使用你的 Mongoose models 。
+
+```javascript
+// connect()方法是异步的
+mongoose.connect('mongodb://localhost/myapp');
+let MyModel = mongoose.model('Test', new Schema({ name: String }));
+// 可行
+MyModel.findOne(function(error, result) { /* ... */ });
+```
+
+Mongoose 会缓存你的 model 操作。这个操作很方便，但也回引起一些疑惑, 因为如果你没连上 ，Mongoose **不会**抛错。
+
+要禁用缓存，请修改 [`bufferCommands`](http://www.mongoosejs.net/docs/guide.html#bufferCommands) 配置。如果你打开了 `bufferCommands` 连接被挂起，尝试关闭 `bufferCommands` 检查你是否正确打开连接。
+
+你也可以全局禁用 `bufferCommands` ：
+
+```javascript
+mongoose.set('bufferCommands', false);
+```
+
+## 选项
+
+`connect` 方法也接受 `options` 参数，这些参数会传入底层 MongoDB 驱动。
+
+```javascript
+mongoose.connect(uri, options);
+```
+
+完整参数列表请参考 [MongoDB Node.js 驱动文档 ](http://mongodb.github.io/node-mongodb-native/2.2/api/MongoClient.html#connect)
+
+以下是一些重要选项：
+
+- `autoReconnect` - 底层 MongoDB 驱动在连接丢失后将自动重连，默认为true。除非你是可以自己管理连接池的高手，否则**不要**把这个选项设为            `false`
+- `reconnectTries` - 如果你连接到一个单一的服务器或mongos代理（而不是一个副本集），MongoDB驱动程序将尝试每隔`reconnectInterval`毫秒进行`reconnectTries`次数（默认值为30）的重新连接，并在之后放弃。当驱动程序放弃时，mongoose连接会发出一个reconnectFailed事件。这个选项对副本集连接没有任何作用。
+- `reconnectInterval` - 见 `reconnectTries`，默认值为1000
+- `promiseLibrary` - 设定底层 [promise 库](http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html)
+- `poolSize` - MongoDB 保持的最大 socket 连接数。 `poolSize` 的默认值是 5。注意，MongoDB 3.4 之前， MongoDB只允许每个 socket 同时进行一个操作，所以如果你有几个缓慢请求卡着后面快的请求，可以尝试增加连接数。
+- `bufferMaxEntries` - MongoDB 驱动同样有自己的离线时缓存机制。如果你希望链接错误时终止数据库操作，请将此选项设为 0 以及把 `bufferCommands` 设为 `false` 。
+
+## 回调
+
+`connect()` 函数接受回调函数，或返回一个 [promise](http://www.mongoosejs.net/docs/promises.html)。
+
+```javascript
+mongoose.connect(uri, options, function(error) {
+  // Check error in initial connection. There is no 2nd param to the callback.
+});
+
+// Or using promises
+mongoose.connect(uri, options).then(
+  () => { /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
+  err => { /** handle initial connection error */ }
+);
 ```
 
 # 定义和添加模型

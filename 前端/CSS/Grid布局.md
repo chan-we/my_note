@@ -1,4 +1,5 @@
-# [CSS Grid 网格布局教程 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html)
+[CSS Grid 网格布局教程 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html)
+
 容器属性
 
 Grid 布局的属性分成两类。一类定义在容器上面，称为**容器属性**；另一类定义在项目上面，称为**项目属性**。
@@ -273,7 +274,7 @@ place-items: <align-items> <justify-items>;
 ```plain
 place-content: <align-content> <justify-content>
 ```
- 
+
 ### start属性值
 
 对齐容器的起始边框

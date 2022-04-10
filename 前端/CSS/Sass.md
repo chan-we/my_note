@@ -439,3 +439,7 @@ for循环有两种形式，分别为：`@for $var from $start through $end` 和 
 假如一条样式规则继承了一个复杂的选择器，那么它只会继承这个复杂选择器命中的元素所应用的样式。举例来说， 如果.seriousError @extend .important.error ， 那么.important.error 和 h1.important.error 的样式都会被.seriousError 继承， 但是.important 或者.error 下的样式则不会被继承。这种情况下你很可能希望.seriousError 能够分别继承.important 或者.error 下的样式。
 如果一个选择器序列（#main .seriousError）@extend 另一个选择器（.error），那么只有完全匹配#main .seriousError 这个选择器的元素才会继承.error 的样式，就像单个类 名继承那样。拥有 class="seriousError"的#main 元素之外的元素不会受到影响。
 像#main .error 这种选择器序列是不能被继承的。这是因为从#main .error 中继承的样式一般情况下会跟直接从.error 中继承的样式基本一致
+
+# 插值
+
+https://www.cnblogs.com/owenyang/p/4014719.html

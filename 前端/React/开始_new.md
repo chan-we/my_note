@@ -1,0 +1,83 @@
+[React项目结构](https://segmentfault.com/a/1190000019759949)
+
+# 使用create-react-app
+
+create-react-app不再支持全局安装，使用npx创建一个项目
+
+```sh
+npx create-react-app my-app
+```
+
+如果安装过慢，检查[npm镜像](../../Node.js/npm/npm yarn设置镜像.md)
+
+如果想要使用TypeScript
+
+```sh
+npx create-react-app my-app --template typescript
+```
+
+要将TypeScript添加到已有项目，安装下面的库：
+
+```sh
+npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+```
+
+接下来，将任何文件重命名为 TypeScript 文件（例如 `src/index.js` 重命名为 `src/index.tsx` ）并 **重新启动开发服务器**
+
+# 配置webpack
+
+**默认配置文件都是隐藏的**，在`package.json`中可以看到eject命令
+
+![image-20220322160703937](http://picgo.chanwe.top/202204121729884.png)
+
+运行此命令（运行后无法撤销操作，建议**先commit一下**）
+
+```
+npm run eject
+```
+
+webpack.config.js在/config/webpack目录中
+
+![image-20220322160956925](http://picgo.chanwe.top/202204121729885.png)
+
+# 遇到问题
+
+## 不支持.tsx拓展
+
+如果在末尾加上`.tsx`拓展名，ts会报错，但是去掉拓展名，又会提示找不到文件
+
+![image-20220322161456060](http://picgo.chanwe.top/202204121729886.png)
+
+在根目录下添加`tsconfig.json`，下面是推荐配置
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noImplicitAny": false,
+    "paths": {
+      "@/*": ["src/*"]
+    },
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+```

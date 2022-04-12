@@ -26,7 +26,7 @@ crontab -uroot -e
 
 文件中只有如下注释，根据提示可以看到我们在每一行可以按规定的格式来添加任务
 
-![image-20220318024852236](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203180248386.png)
+![image-20220318024852236](http://picgo.chanwe.top/202204121709973.png)
 
 ## 日期允许值
 

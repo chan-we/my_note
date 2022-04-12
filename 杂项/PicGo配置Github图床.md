@@ -12,11 +12,11 @@
 
 进入设置  
 
-![PicGo配置Github图床-2022-03-15-18-00-10-PicGo配置Github图床-image-2022-03-15-17-45-27](https://raw.githubusercontent.com/chan-we/my_note/picbed/PicGo%E9%85%8D%E7%BD%AEGithub%E5%9B%BE%E5%BA%8A-2022-03-15-18-00-10-PicGo%E9%85%8D%E7%BD%AEGithub%E5%9B%BE%E5%BA%8A-image-2022-03-15-17-45-27.png?token=AMDEC2JLCHROPYFDZWLQA7TCGBR6Q)  
+![PicGo配置Github图床-2022-03-15-18-00-10-PicGo配置Github图床-image-2022-03-15-17-45-27](http://picgo.chanwe.top/202204121709421.png)  
 
 修改配置  
 
-![](https://raw.githubusercontent.com/chan-we/my_note/picbed/test.png?token=AMDEC2PHD5JIA42HNBWFSJLCGBRU4)  
+![](http://picgo.chanwe.top/202204121709422.png)  
 
 **记得保持仓库可见性为public，否则图片可能无法加载**
 
@@ -26,7 +26,7 @@
 
 设置Github图床
 
-![image-20220317233142204](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203172331258.png)
+![image-20220317233142204](http://picgo.chanwe.top/202204121709423.png)
 
 ## 解决 tunneling socket could not be established问题
 

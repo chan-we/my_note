@@ -61,7 +61,7 @@ Header 部分是一个 JSON 对象，描述 JWT 的元数据，通常是下面�
 
 写成一行，就是下面的样子:
 
-![img](https://www.wangbase.com/blogimg/asset/201807/bg2018072303.jpg)
+![image-20220412175843110](http://picgo.chanwe.top/202204121758181.png)
 
 ## Payload
 

@@ -2,11 +2,11 @@
 
 点击左侧的`Environment`
 
-![image-20220321013658249](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203210136449.png)
+![image-20220321013658249](http://picgo.chanwe.top/202204121709914.png)
 
 点击加号新建一个环境
 
-![image-20220321014017741](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203210140827.png)
+![image-20220321014017741](http://picgo.chanwe.top/202204121709915.png)
 
 设置好后记得**保存**，不然不会生效
 
@@ -17,7 +17,7 @@
 
 current value是当前在环境中起作用的，也可以说它是测试用数据，用于导出和分享的是initial value，所以我们最好在最后定档的时候让initial value都是最合适的值
 
-![image-20220321014634884](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203210146971.png)
+![image-20220321014634884](http://picgo.chanwe.top/202204121709916.png)
 
 可以在右上方快速决定保留current value还是放弃current value
 
@@ -28,6 +28,6 @@ current value是当前在环境中起作用的，也可以说它是测试用数�
 
 在右上角可以设置当前环境
 
-![image-20220321014854379](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203210148467.png)
+![image-20220321014854379](http://picgo.chanwe.top/202204121709917.png)
 
 设置好后即可使用环境中的变量，注意变量的值是current value

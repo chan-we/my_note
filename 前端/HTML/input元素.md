@@ -39,7 +39,7 @@ input {
 
 iOS调起的键盘：
 
-![image-20220408200730497](https://raw.githubusercontent.com/chan-we/my_note/picbed/202204082007555.png)
+![image-20220408200730497](http://picgo.chanwe.top/202204121729684.png)
 
 设置正则表达式，此时**只允许输入数字和小数点**
 
@@ -58,7 +58,7 @@ iOS调起的键盘：
 
 iOS调起的键盘：
 
-![image-20220408200806787](https://raw.githubusercontent.com/chan-we/my_note/picbed/202204082008827.png)
+![image-20220408200806787](http://picgo.chanwe.top/202204121729685.png)
 
 ## 使用type="tel"
 

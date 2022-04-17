@@ -2,11 +2,11 @@
 
 打开`工具 -> 串口监视器`
 
-![image-20220324001150713](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203240011783.png)
+![image-20220324001150713](http://picgo.chanwe.top/202204121709482.png)
 
 将波特率设为9600（这是从代码来的，代码设置波特率为多少，这里就改为多少）
 
-![image-20220324001449637](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203240014739.png)
+![image-20220324001449637](http://picgo.chanwe.top/202204121709483.png)
 
 写入以下代码：
 
@@ -42,15 +42,15 @@ void loop() {
 
 串口监视器输出（如果是先写入代码再打开串口监视器，你不会看到输出，因为已经过了setup()的阶段了，这时候**手动按下开发板上的复位按钮**，重新执行，可以看到输出）
 
-![image-20220324003937244](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203240039313.png)
+![image-20220324003937244](http://picgo.chanwe.top/202204121709484.png)
 
 可以搜索到esp8266创建的WiFi
 
-![image-20220324004015956](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203240040047.png)
+![image-20220324004015956](http://picgo.chanwe.top/202204121709485.png)
 
 连接它，然后ping 192.168.4.1（即esp8266设备），能ping通则表示设置成功
 
-![image-20220324004134833](C:\Users\chan_\AppData\Roaming\Typora\typora-user-images\image-20220324004134833.png)
+![image-20220324004134833](http://picgo.chanwe.top/202204121709486.png)
 
 # 无线终端模式
 
@@ -94,7 +94,7 @@ void loop() {
 
 串口监视器显示如下：
 
-![image-20220324005235361](https://raw.githubusercontent.com/chan-we/my_note/picbed/202203240052435.png)
+![image-20220324005235361](http://picgo.chanwe.top/202204121709487.png)
 
 同一WiFi下的设备尝试ping esp8266，如果能ping通则表示设置成功
 

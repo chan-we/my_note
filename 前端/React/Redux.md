@@ -6,7 +6,7 @@
 
 Redux工作流程演示：
 
-![ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26](https://raw.githubusercontent.com/chan-we/my_note/picbed/202204021746475.gif)
+![ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26](http://picgo.chanwe.top/202204121729659.gif)
 
 # 安装
 

@@ -23,6 +23,22 @@ input {
 <input defaultValue="Doe">
 ```
 
+# 读取文件/文件夹
+
+将`<input>`的`type`属性设为`file`，可读取文件
+
+```html
+<input type="file">
+```
+
+给`<input>`添加`webkitdirectory`属性，可读取文件夹
+
+```html
+<input type="file" webkitdirectory>
+```
+
+
+
 # 调起数字键盘
 
 设置`<input>`的`type`属性，可以调起数字键盘

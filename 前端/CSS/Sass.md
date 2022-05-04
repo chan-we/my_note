@@ -443,3 +443,7 @@ for循环有两种形式，分别为：`@for $var from $start through $end` 和 
 # 插值
 
 https://www.cnblogs.com/owenyang/p/4014719.html
+
+# 全局Sass
+
+安装[sass-resources-loader](https://www.npmjs.com/package/sass-resources-loader)
